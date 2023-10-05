@@ -1,14 +1,15 @@
 
 import './App.css';
-import {Home} from "./pages/Home/Home"
+import {Home, Task} from "./pages"; 
 import {images} from "./datab/images"
 import { useBrowser } from './context/browser-context';
 import { useEffect } from 'react';
 
+const index = Math.floor(Math.random() * images.length);
+const bgImage = images[index].image;
+
 function App() {
 
-  const index = Math.floor(Math.random() * images.length);
-  const bgImage = images[index].image;
   const {name, browserDispatch} = useBrowser();
   
   useEffect(() => {
@@ -21,7 +22,7 @@ function App() {
 
   return (
     <div className="App" style={{backgroundImage: `url("${bgImage}")`}}>
-      <Home />
+      {name ? <Task /> : <Home />}
     </div>
   );
 }
