@@ -1,4 +1,5 @@
 import './Task.css';
+import {Todo} from '../../components/Todo';
 import { useBrowser } from '../../context/browser-context';
 import {Fragment, useEffect, useState } from 'react';
 import {quotes} from "../../datab/quotes"
@@ -11,6 +12,7 @@ export const Task = () => {
     const {name, time, message, focus, browserDispatch} = useBrowser();
 
     const [isChecked, setIsChecked] = useState(false);
+    const [isTodoOpen, setIsTodoOpen] = useState(false);
 
     useEffect(() => {
         const userFocus = localStorage.getItem("focus");
@@ -88,6 +90,10 @@ export const Task = () => {
         })
     }
 
+    const handleTodoClick = () => {
+        setIsTodoOpen(!isTodoOpen);
+    }
+
     return (
         <div className='task-container d-flex direction-column align-center relative'>
             <span className='time'>{time}</span>
@@ -118,8 +124,12 @@ export const Task = () => {
             
         <div className='quote-container'>
             <span className='heading-3'>{quote}</span>    
-        </div>    
-        
+        </div>
+
+        {isTodoOpen && <Todo />}    
+        <div className='todo-btn-container absolute'>
+            <button className='button cursor todo-btn' onClick={handleTodoClick}>To-Do</button>
+        </div>
             
 
         </div>
